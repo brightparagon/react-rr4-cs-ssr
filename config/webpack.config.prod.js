@@ -55,8 +55,19 @@ module.exports = {
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
+
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  // entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: {
+    vendor: [
+      require.resolve('./polyfills'),
+      'react',
+      'react-dom',
+      'react-router-dom'
+    ],
+    app: paths.appIndexJs
+  },
+
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -229,6 +240,15 @@ module.exports = {
     ],
   },
   plugins: [
+    // Production일땐 pages의 index.js를 index.async.js로 치환 -> 비동기 라우팅
+    new webpack.NormalModuleReplacementPlugin(
+      /pages\/index\.js/,
+      './index.async.js'
+    ),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
+
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
