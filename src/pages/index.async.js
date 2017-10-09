@@ -1,9 +1,9 @@
 import asyncRoute from '../lib/asyncRoute';
 
-const Home = asyncRoute(() => import('./Home'));
-const About = asyncRoute(() => import('./About'));
-const Post = asyncRoute(() => import('./Post'));
-const Posts = asyncRoute(() => import('./Posts'));
+const Home = asyncRoute(() => import( /* webpackChunkName: "Home" */ './Home'));
+const About = asyncRoute(() => import( /* webpackChunkName: "About" */ './About'));
+const Post = asyncRoute(() => import( /* webpackChunkName: "Post" */ './Post'));
+const Posts = asyncRoute(() => import( /* webpackChunkName: "Posts" */ './Posts'));
 
 export {
   Home,

@@ -58,7 +58,8 @@
     "start:server": "node server",
     "build": "node scripts/build.js",
     "build:server": "node scripts/build.server.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "analyze": "NODE_ENV=production webpack --config ./config/webpack.config.prod.js -p --profile --json > ./node_modules/.profile.json && webpack-bundle-analyzer ./node_modules/.profile.json"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -102,6 +103,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "ignore-loader": "^0.1.2"
+    "ignore-loader": "^0.1.2",
+    "webpack-bundle-analyzer": "^2.9.0"
   }
 }
